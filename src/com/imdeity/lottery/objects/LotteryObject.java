@@ -57,8 +57,8 @@ public class LotteryObject {
             try {
                 Deity.chat.sendPlayerMessage(Deity.server.getOnlinePlayer(winner), "Congrats! You have won the lottery! Use /lottery claim to claim your winnings");
                 Deity.chat.sendMailToPlayer("[Lottery]", winner, "You just won the daily lottery worth " + winnings + " Dei! Claim your winnings with /lottery claim");
-                Deity.chat.sendMessageToAllOnline("DeityLottery", "Drawing the &cImDeity Daily Lottery...");
-                Deity.chat.sendMessageToAllOnline("DeityLottery", "&a" + winner + "&f just won &a" + money + " &fdei in the daily Lottery! &3/lottery buy&f to buy your own");
+                Deity.chat.sendMessageToAllOnline("LuxeLottery", "Drawing the &cImDeity Daily Lottery...");
+                Deity.chat.sendMessageToAllOnline("LuxeLottery", "&a" + winner + "&f just won &a" + money + " &fdei in the daily Lottery! &3/lottery buy&f to buy your own");
                 System.out.println("[Lottery] " + winner + " won todays lottery");
             } catch (InvalidChannelException e) {
                 e.printStackTrace();
@@ -74,7 +74,7 @@ public class LotteryObject {
         String sql = "SELECT `winnings` FROM " + Deity.data.getDB().tableName("lottery_", "winners") + " WHERE `username` = '" + player.getName() + "' AND " + "`has_claimed` = '0';";
         DatabaseResults query = Deity.data.getDB().Read2(sql);
         if (query == null) {
-            Deity.chat.sendPlayerError(player, "DeityLottery", "You have no winnings that can be claimed at this time.");
+            Deity.chat.sendPlayerError(player, "LuxeLottery", "You have no winnings that can be claimed at this time.");
         } else {
             double winnings = 0;
             try {
@@ -84,7 +84,7 @@ public class LotteryObject {
             }
             try {
                 if (Deity.econ.receive(player.getName(), winnings, "Lottery winnings")) {
-                    Deity.chat.sendPlayerMessage(player, "&8[&c*&8] ", "&bThanks for playing in the lottery, &3" + winnings + " Dei &bhas been added to your account!");
+                    Deity.chat.sendPlayerMessage(player, "&8[&c*&8] ", "&bThanks for playing in the lottery, &3" + winnings + " Luxe &bhas been added to your account!");
 
                     sql = "UPDATE " + Deity.data.getDB().tableName("lottery_", "winners") + " SET `has_claimed` = 1 WHERE `username` = '" + player.getName() + "'";
                     Deity.data.getDB().Write(sql);
